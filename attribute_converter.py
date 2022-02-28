@@ -1,7 +1,9 @@
 bl_info = {
     "name": "Attribute Converter",
     "category": "Object",
-    "blender": (3, 10, 0)
+    "blender": (3, 1, 0),
+    "author": "nothke",
+    "description": "Simplifies converting attributes created by geometry nodes to built-in attributes like UVs or vertex colors, as a single click operations for all selected objects.",
 }
 
 from audioop import reverse
