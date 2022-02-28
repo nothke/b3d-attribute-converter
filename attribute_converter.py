@@ -15,25 +15,25 @@ class NOTHKE_OT_AttributeConverter(bpy.types.Operator):
     def execute(self, context):
         print("Executing")
 
-        active = context.view_layer.objects.active
-        active.data.attributes. active_index = 1
-        bpy.ops.geometry.attribute_convert(mode='UV_MAP')
+        for obj in bpy.context.selected_objects:
+            context.view_layer.objects.active = obj
 
-        # meshes = []
+            # apply modifiers
+            bpy.ops.object.convert(target='MESH')
 
-        # # gather meshes of selected objects
-        # for obj in bpy.context.selected_objects:
-        #     if obj.data not in meshes:
-        #         meshes.append(obj.data)
+            # convert attributes
+            for i in reversed(range(len(obj.data.attributes))):
+                attr = obj.data.attributes[i]
 
-            
+                obj.data.attributes.active_index = i
 
-        # # foreach mesh
-        # for mesh in meshes:
-        #     for attr in mesh.attributes:
-        #         print("Attr: name " + attr.name + ", type: " + attr.data_type)
+                print(attr.name)
 
-        #         bpy.ops.geometry.attribute_convert(mode='UV_MAP')
+                if attr.name == self.uv_name:
+                    bpy.ops.geometry.attribute_convert(mode='UV_MAP')
+
+                if attr.name == self.color_name:
+                    bpy.ops.geometry.attribute_convert(mode='VERTEX_COLOR')
 
         return {'FINISHED'}
 
