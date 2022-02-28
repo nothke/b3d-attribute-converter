@@ -1,3 +1,9 @@
+bl_info = {
+    "name": "Attribute Converter",
+    "category": "Object",
+    "blender": (3, 10, 0)
+}
+
 from audioop import reverse
 import bpy
 from bpy.props import StringProperty
@@ -118,6 +124,7 @@ def unregister():
     del bpy.types.Scene.attrcon_uv_name
     del bpy.types.Scene.attrcon_color_name
     del bpy.types.Scene.attrcon_remove_existing
+
 
 if __name__ == "__main__":
     register()
