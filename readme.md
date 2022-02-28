@@ -8,7 +8,7 @@ The operation is destructive, as it requires Geometry Node modifier to be applie
 
 ### Current limitations
 * Only supports uv and vertex color for now
-* Only supports 1 layer
+* Only supports 1 layer of each
 
 If you wish to add any more features, pull requests are welcome.
 
