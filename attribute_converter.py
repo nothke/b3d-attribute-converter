@@ -1,7 +1,14 @@
+from audioop import reverse
 import bpy
 from bpy.props import StringProperty
+from bpy.props import BoolProperty
 
 # OPERATOR
+
+
+def clear_collection(collection):
+    for i in reversed(range(len(collection))):
+        collection.remove(collection[i])
 
 
 class NOTHKE_OT_AttributeConverter(bpy.types.Operator):
@@ -11,6 +18,7 @@ class NOTHKE_OT_AttributeConverter(bpy.types.Operator):
 
     uv_name: StringProperty(default="uv")
     color_name: StringProperty(default="color")
+    remove_existing: BoolProperty(default=True)
 
     def execute(self, context):
         print("Executing")
@@ -20,6 +28,11 @@ class NOTHKE_OT_AttributeConverter(bpy.types.Operator):
 
             # apply modifiers
             bpy.ops.object.convert(target='MESH')
+
+            # remove existing uv and color maps
+            if self.remove_existing:
+                clear_collection(obj.data.vertex_colors)
+                clear_collection(obj.data.uv_layers)
 
             # convert attributes
             for i in reversed(range(len(obj.data.attributes))):
@@ -54,6 +67,9 @@ class NOTHKE_PT_AttributeConverter(bpy.types.Panel):
         layout = self.layout
 
         row = layout.row()
+        row.prop(scene, 'attrcon_remove_existing')
+
+        row = layout.row()
         row.prop(scene, 'attrcon_uv_name')
 
         row = layout.row()
@@ -76,13 +92,18 @@ def register():
     # register properties
     bpy.types.Scene.attrcon_uv_name = bpy.props.StringProperty(
         name="UV Name",
-        description="Export all objects from this collection",
+        description="The name of the uv attribute set in the GeometryNode modifier 'Output Attribute'. If none is found it will be skipped.",
         default='uv')
 
     bpy.types.Scene.attrcon_color_name = bpy.props.StringProperty(
         name="Color Name",
-        description="Export all objects from this collection",
+        description="The name of the color attribute set in the GeometryNode modifier 'Output Attribute'. If none is found it will be skipped.",
         default='color')
+
+    bpy.types.Scene.attrcon_remove_existing = bpy.props.BoolProperty(
+        name="Remove existing maps?",
+        description="Do you want to remove existing uv and color maps before applying the converted attributes? If false, it will keep the original and add the converted attributes.",
+        default=True)
 
     print('properties registered')
 
@@ -93,9 +114,10 @@ def register():
 def unregister():
     bpy.utils.unregister_class(NOTHKE_PT_AttributeConverter)
     bpy.utils.unregister_class(NOTHKE_OT_AttributeConverter)
-    #del bpy.types.Scene.hofexport_layer
-    #del bpy.types.Scene.hofexport_filename
 
+    del bpy.types.Scene.attrcon_uv_name
+    del bpy.types.Scene.attrcon_color_name
+    del bpy.types.Scene.attrcon_remove_existing
 
 if __name__ == "__main__":
     register()
