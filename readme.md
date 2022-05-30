@@ -1,3 +1,9 @@
+## WARNING, this is a hack for a (soon to be) deprecated conversion process
+
+Since at least Blender 3.3.0 alpha, the blender attributes have been completely overhauled and now values can be stored with Store Named Attribute node into output attributes directly and the entire hacky conversion process (that this script simplifies) is completely unnecessary!.
+
+If you are using a version before Blender 3.3.0 this will still help you.
+
 ### Attribute Converter
 
 Simplifies converting attributes created by geometry nodes to built-in attributes like UVs or vertex colors, as a single click operation for all selected objects.
