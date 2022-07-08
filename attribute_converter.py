@@ -90,6 +90,7 @@ class NOTHKE_PT_AttributeConverter(bpy.types.Panel):
         # set properties to operator values
         op.uv_name = scene.attrcon_uv_name
         op.color_name = scene.attrcon_color_name
+        op.remove_existing = scene.attrcon_remove_existing
 
 
 def register():
