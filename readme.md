@@ -1,10 +1,12 @@
-## WARNING, this is a hack for a (soon to be) deprecated conversion process
+## Note on a false warning
 
-Since at least Blender 3.3.0 alpha, the blender attributes have been completely overhauled and now values can be stored with Store Named Attribute node into output attributes directly and the entire hacky conversion process (that this script simplifies) is completely unnecessary!.
+Previously I mentioned that this plugin is no longer relevant since 3.3.0 alpha, but I was wrong, it actually still is.
 
-If you are using a version before Blender 3.3.0 this will still help you.
+In 3.2 there's been a change on how attributes work, namely "Named Attribute" and "Store Named Attribute" nodes have been added, which simplify storing attributes from nodes a lot. However, they will still not overwrite the built-in attributes, so it still needs to be converted manually.
 
-### Attribute Converter
+As of 3.2 and in at least 3.3, color attributes are actually bound together between geonode-attributes and built-in-attributes, so no conversion is necessary. It is still however necessary for UVs, so this plugin will simply skip converting colors in those versions.
+
+# Attribute Converter
 
 Simplifies converting attributes created by geometry nodes to built-in attributes like UVs or vertex colors, as a single click operation for all selected objects.
 
