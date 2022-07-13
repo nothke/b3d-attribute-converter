@@ -27,7 +27,7 @@ class NOTHKE_OT_AttributeConverter(bpy.types.Operator):
     uv_name: StringProperty(default="UVMap")
     color_name: StringProperty(default="Color")
     remove_existing: BoolProperty(default=True)
-    skip_if_no_nodes: BoolProperty(default=True)
+    skip_if_no_nodes: BoolProperty(default=False)
 
     def execute(self, context):
         print("Executing")
@@ -121,12 +121,12 @@ def register():
     bpy.types.Scene.attrcon_uv_name = bpy.props.StringProperty(
         name="UV Name",
         description="The name of the uv attribute set in the GeometryNode modifier 'Output Attribute'. If none is found it will be skipped.",
-        default='uv')
+        default='UVMap')
 
     bpy.types.Scene.attrcon_color_name = bpy.props.StringProperty(
         name="Color Name",
         description="The name of the color attribute set in the GeometryNode modifier 'Output Attribute'. If none is found it will be skipped.",
-        default='color')
+        default='Color')
 
     bpy.types.Scene.attrcon_remove_existing = bpy.props.BoolProperty(
         name="Remove existing maps?",
@@ -135,8 +135,8 @@ def register():
 
     bpy.types.Scene.attrcon_skip_if_no_nodes = bpy.props.BoolProperty(
         name="Skip if no nodes",
-        description="",
-        default=True)
+        description="If an object does not have Geometry Nodes modifier, applying attributes will be skipped without warning. This is useful when selecting many objects",
+        default=False)
 
     print('properties registered')
 
