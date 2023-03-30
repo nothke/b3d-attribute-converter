@@ -1,6 +1,10 @@
-## Note on a false warning
+## No longer needed!
 
-Previously I mentioned that this plugin is no longer relevant since 3.3.0 alpha, but I was wrong, it actually still is.
+This plugin is no longer required since blender 3.5.0 as both colors and UVs are converted to built-in attributes automatically:
+- UVs need to be 2D Vector in Face Corner domain
+- Colors - can either be Color or Byte Color in Vertex or Face Corner domains
+
+## For blender 3.4 and earlier:
 
 In 3.2 there's been a change on how attributes work, namely "Named Attribute" and "Store Named Attribute" nodes have been added, which simplify storing attributes from nodes a lot. However, they will still not overwrite the built-in attributes, so it still needs to be converted manually.
 
